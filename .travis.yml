@@ -60,14 +60,15 @@ before_deploy:
       - "./pre-deploy.sh"
 deploy:
   provider: releases
-  user: eternasparta1
-  password: Aulico10
+  api_key:
+    secure: f13ca74f2c519b6cc857ea0c6edca84348ee9d9a
   file: out/**/zip/*
   skip_cleanup: true
   on:
     repo: eternasparta1/rupaya
   on:
     tags: true
+
 #deploy:
 #  provider: s3
 #  access_key_id: AKIAIKPTCZAG4GFH5EPQ
