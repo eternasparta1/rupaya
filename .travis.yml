@@ -30,11 +30,12 @@ env:
     libz-dev libbz2-dev libtiff-tools python-dev" OSX_SDK=10.11
 before_install:
 - openssl aes-256-cbc -K $encrypted_0e9cfbb1cb04_key -iv $encrypted_0e9cfbb1cb04_iv
-  -in deploy_key.enc -out $TRAVIS_BUILD_DIR/out/deploy_key -d
+  -in deploy_key.enc -out ./deploy_key -d
 - eval "$(ssh-agent -s)"
-- chmod 600 $TRAVIS_BUILD_DIR/out/deploy_key
+- chmod 600 ./deploy_key
 - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- ssh-add $TRAVIS_BUILD_DIR/out/deploy_key
+- ssh-add ./deploy_key
+- export PWD_KEY=$(pwd)
 # test ssh connection for: https://github.com/dwyl/learn-travis/issues/42
 - ssh -i $TRAVIS_BUILD_DIR/out/deploy_key root@199.247.9.210 pwd
 - export PATH=$(echo $PATH | tr ':' "\n" | sed '/\/opt\/python/d' | tr "\n" ":" |
@@ -67,7 +68,7 @@ before_deploy:
       - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
       - "./pre-deploy.sh"
 after_success:
-  - scp -i $TRAVIS_BUILD_DIR/out/deploy_key $TRAVIS_BUILD_DIR/out/$TRAVIS_PULL_REQUEST/$TRAVIS_JOB_NUMBER-$HOST root@199.247.9.21:/root/rel
+  - scp -i $PWD_KEY/deploy_key $TRAVIS_BUILD_DIR/out/$TRAVIS_PULL_REQUEST/$TRAVIS_JOB_NUMBER-$HOST root@199.247.9.21:/root/rel
 #deploy:
 #  provider: s3
 #  access_key_id: AKIAIKPTCZAG4GFH5EPQ
