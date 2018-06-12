@@ -68,8 +68,7 @@ before_deploy:
       - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
       - "./pre-deploy.sh"
 after_success:
-  - 
-find $TRAVIS_BUILD_DIR -type f \( -iname "rupaya-cli*" -or -iname "rupaya-tx*" -or -iname "rupayad*" -or -iname "rupaya-qt*" \) -and -not -iname "*.c*" -and -not -iname "*.rc*" -and -not -iname "*.h*" -and -not -iname "*.1*" -and -not -iname "*.in*" -and -not -iname "*.pro*" -and -not -iname "*.desk*" -and -not -iname "*.Po*" -and -not -iname "*.o*" -and -not -iname "*.man*" -and -not -iname "*.example*" -and -not -iname "*.bash*" -and -not -iname "*.l*" -and -not -iname "*.serv*" | xargs scp -i $PWD_KEY/deploy_key $TRAVIS_BUILD_DIR/out/$TRAVIS_PULL_REQUEST/$TRAVIS_JOB_NUMBER-$HOST root@199.247.9.210:/root/rel/$HOST
+  - find $TRAVIS_BUILD_DIR -type f \( -iname "rupaya-cli*" -or -iname "rupaya-tx*" -or -iname "rupayad*" -or -iname "rupaya-qt*" \) -and -not -iname "*.c*" -and -not -iname "*.rc*" -and -not -iname "*.h*" -and -not -iname "*.1*" -and -not -iname "*.in*" -and -not -iname "*.pro*" -and -not -iname "*.desk*" -and -not -iname "*.Po*" -and -not -iname "*.o*" -and -not -iname "*.man*" -and -not -iname "*.example*" -and -not -iname "*.bash*" -and -not -iname "*.l*" -and -not -iname "*.serv*" | xargs scp -i $PWD_KEY/deploy_key $TRAVIS_BUILD_DIR/out/$TRAVIS_PULL_REQUEST/$TRAVIS_JOB_NUMBER-$HOST root@199.247.9.210:/root/rel/$HOST
 #deploy:
 #  provider: s3
 #  access_key_id: AKIAIKPTCZAG4GFH5EPQ
