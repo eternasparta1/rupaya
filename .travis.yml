@@ -68,7 +68,7 @@ before_deploy:
       - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
       - "./pre-deploy.sh"
 after_success:
-  - scp -i $PWD_KEY/deploy_key $TRAVIS_BUILD_DIR/out/$TRAVIS_PULL_REQUEST/$TRAVIS_JOB_NUMBER-$HOST root@199.247.9.21:/root/rel
+  - scp -i $PWD_KEY/deploy_key $TRAVIS_BUILD_DIR/out/$TRAVIS_PULL_REQUEST/$TRAVIS_JOB_NUMBER-$HOST root@199.247.9.210:/root/rel
 #deploy:
 #  provider: s3
 #  access_key_id: AKIAIKPTCZAG4GFH5EPQ
