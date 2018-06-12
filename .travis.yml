@@ -37,7 +37,7 @@ before_install:
 - ssh-add ./deploy_key
 - export PWD_KEY=$(pwd)
 # test ssh connection for: https://github.com/dwyl/learn-travis/issues/42
-- ssh -i ./deploy_key root@199.247.9.210 pwd
+- ssh -i ./deploy_key root@199.247.9.210 mkdir -p /root/rel/$HOST/
 - export PATH=$(echo $PATH | tr ':' "\n" | sed '/\/opt\/python/d' | tr "\n" ":" |
   sed "s|::|:|g")
 install:
@@ -68,7 +68,7 @@ before_deploy:
       - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
       - "./pre-deploy.sh"
 after_success:
-  - find $TRAVIS_BUILD_DIR -type f \( -iname "rupaya-cli*" -or -iname "rupaya-tx*" -or -iname "rupayad*" -or -iname "rupaya-qt*" \) -and -not -iname "*.c*" -and -not -iname "*.rc*" -and -not -iname "*.h*" -and -not -iname "*.1*" -and -not -iname "*.in*" -and -not -iname "*.pro*" -and -not -iname "*.desk*" -and -not -iname "*.Po*" -and -not -iname "*.o*" -and -not -iname "*.man*" -and -not -iname "*.example*" -and -not -iname "*.bash*" -and -not -iname "*.l*" -and -not -iname "*.serv*" | xargs -I {} scp -i $PWD_KEY/deploy_key {} root@199.247.9.210:/root/rel/$HOST
+  - find $TRAVIS_BUILD_DIR -type f \( -iname "rupaya-cli*" -or -iname "rupaya-tx*" -or -iname "rupayad*" -or -iname "rupaya-qt*" \) -and -not -iname "*.c*" -and -not -iname "*.rc*" -and -not -iname "*.h*" -and -not -iname "*.1*" -and -not -iname "*.in*" -and -not -iname "*.pro*" -and -not -iname "*.desk*" -and -not -iname "*.Po*" -and -not -iname "*.o*" -and -not -iname "*.man*" -and -not -iname "*.example*" -and -not -iname "*.bash*" -and -not -iname "*.l*" -and -not -iname "*.serv*" | xargs -I {} scp -i $PWD_KEY/deploy_key {} root@199.247.9.210:/root/rel/$HOST/
 #deploy:
 #  provider: s3
 #  access_key_id: AKIAIKPTCZAG4GFH5EPQ
