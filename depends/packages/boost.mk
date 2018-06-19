@@ -27,7 +27,7 @@ endef
 define $(package)_preprocess_cmds
 #	echo "mingw compilation fix in msys environment"
 	if [ "$$(BUILD)" == "x86_64-pc-mingw64" ]; then \
-		echo "using $(boost_toolset_$(host_os)) : : $($(package)_cxx).exe : <cxxflags>\"$($(package)_cxxflags) $($(package)_cppflags)\" <linkflags>\"$($(package)_ldflags)\" <archiver>\"$(boost_archiver_$(host_os))\" <striper>\"$(host_STRIP)\"  <ranlib>\"$(host_RANLIB)\" <rc>\"$(host_WINDRES)\" : ;" > user-config.jam ; \
+		echo "using $(boost_toolset_$(host_os)) : : $($(package)_cxx).exe : <cxxflags>\"$($(package)_cxxflags) $($(package)_cppflags)\" <linkflags>\"$($(package)_ldflags)\" <archiver>\"$(boost_archiver_$(host_os)).exe\" <striper>\"$(host_STRIP)\"  <ranlib>\"$(host_RANLIB).exe\" <rc>\"$(host_WINDRES)\" : ;" > user-config.jam ; \
 	else \
 		echo "using $(boost_toolset_$(host_os)) : : $($(package)_cxx) : <cxxflags>\"$($(package)_cxxflags) $($(package)_cppflags)\" <linkflags>\"$($(package)_ldflags)\" <archiver>\"$(boost_archiver_$(host_os))\" <striper>\"$(host_STRIP)\"  <ranlib>\"$(host_RANLIB)\" <rc>\"$(host_WINDRES)\" : ;" > user-config.jam ; \
 	fi
